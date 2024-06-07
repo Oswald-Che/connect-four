@@ -1,5 +1,7 @@
 # class to store information on game pieces
 class Node
+  attr_reader :pos, :colour, :symbol, :neighbours
+  
   def initialize(pos, colour = nil)
     @pos = pos
     @colour = colour
