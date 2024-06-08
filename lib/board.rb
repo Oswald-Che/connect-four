@@ -38,27 +38,30 @@ class Board
 
   def win?
     board.each do |row|
-      row.each do |item|
-        next if item == empty
+      row.each do |piece|
+        next if piece == empty
 
-        return true if check_win?(item)
+        return true if check_win?(piece)
       end
     end
     false
   end
 
-  def check_win?(item)
-    item.neighbours.each_with_index do |pos, index|
+  # check if piece is a sequence with matching pieces
+  def check_win?(piece)
+    piece.neighbours.each_with_index do |pos, index|
+      next if pos.nil?
+
       i, j = pos
-      piece = board[i][j]
-      return true if successive?(piece, index, item.coulour)
+      neighbour = board[i][j]
+      return true if successive?(neighbour, index, piece.colour)
     end
     false
   end
 
   def successive?(piece, index, colour, count = 0)
-    return false if piece == empty || piece.colour != colour
-    return true if count == 3
+    return false if piece.nil? || piece == empty || piece.colour != colour
+    return true if count == 2
 
     count += 1
     i, j = piece.neighbours[index]

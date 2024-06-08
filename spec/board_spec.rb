@@ -144,4 +144,62 @@ describe Board do
       end
     end
   end
+
+  describe '#check_win?' do
+    subject(:board_check) { described_class.new }
+
+    context 'when there are four in row with different colours' do
+      before do
+        4.times do |i|
+          next(board_check.board[0][i] = Node.new([0, i], 'BLACK')) if i == 3
+
+          board_check.board[0][i] = Node.new([0, i], 'WHITE')
+        end
+      end
+
+      it 'return false' do
+        first_piece = board_check.board[0][0]
+        expect(board_check.check_win?(first_piece)).to be false
+      end
+    end
+
+    context 'when there are four in row with matching colours' do
+      before do
+        4.times do |i|
+          board_check.board[0][i] = Node.new([0, i], 'WHITE')
+        end
+      end
+
+      it 'return true' do
+        first_piece = board_check.board[0][0]
+        expect(board_check.check_win?(first_piece)).to be true
+      end
+    end
+
+    context 'when there are four in row verticaly with matching colours' do
+      before do
+        4.times do |i|
+          board_check.board[i][0] = Node.new([i, 0], 'WHITE')
+        end
+      end
+
+      it 'return true' do
+        first_piece = board_check.board[0][0]
+        expect(board_check.check_win?(first_piece)).to be true
+      end
+    end
+
+    context 'when there are four in row diagonally with matching colours' do
+      before do
+        4.times do |i|
+          board_check.board[i][i] = Node.new([i, i], 'WHITE')
+        end
+      end
+
+      it 'return true' do
+        first_piece = board_check.board[0][0]
+        expect(board_check.check_win?(first_piece)).to be true
+      end
+    end
+  end
 end
