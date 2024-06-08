@@ -41,10 +41,29 @@ class Board
       row.each do |item|
         next if item == empty
 
-        return true if metho(item)
+        return true if check_win?(item)
       end
     end
     false
+  end
+
+  def check_win?(item)
+    item.neighbours.each_with_index do |pos, index|
+      i, j = pos
+      piece = board[i][j]
+      return true if successive?(piece, index, item.coulour)
+    end
+    false
+  end
+
+  def successive?(piece, index, colour, count = 0)
+    return false if piece == empty || piece.colour != colour
+    return true if count == 3
+
+    count += 1
+    i, j = piece.neighbours[index]
+    piece = board[i][j]
+    successive?(piece, index, colour, count)
   end
 
 end

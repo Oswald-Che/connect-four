@@ -68,27 +68,79 @@ describe Board do
 
   describe '#column_full' do
     context 'when a column is empty' do
-      subject(:game_col_full) { described_class.new }
+      subject(:board_col_full) { described_class.new }
 
       it 'returns false' do
         column = 1
-        expect(game_col_full).not_to be_column_full(column)
+        expect(board_col_full).not_to be_column_full(column)
       end
     end
 
     context 'when a column is full' do
       let(:node) { double('node') }
-      subject(:game_col_full) { described_class.new }
+      subject(:board_col_full) { described_class.new }
 
       before do
         column = 1
         6.times do |i|
-          game_col_full.instance_variable_get(:@board)[i][column] = node
+          board_col_full.instance_variable_get(:@board)[i][column] = node
         end
       end
 
       it 'returns true' do
-        expect(game_col_full).to be_column_full(1)
+        expect(board_col_full).to be_column_full(1)
+      end
+    end
+  end
+
+  describe '#win?' do
+    context 'when board is empty' do
+      subject(:board_win) { described_class.new }
+
+      it 'does not send a message to check win' do
+        expect(board_win).not_to receive(:check_win?)
+        board_win.win?
+      end
+
+      it 'is not a win' do
+        expect(board_win).not_to be_win
+      end
+    end
+
+    context 'when board is filled with four pieces but it is not a win' do
+      let(:node) { double('node')}
+      subject(:board_win) { described_class.new }
+
+      before do
+        4.times do |i|
+          board_win.instance_variable_get(:@board)[0][i] = node
+        end
+        allow(board_win).to receive(:check_win?)
+      end
+
+      it 'checks available pieces' do
+        expect(board_win).to receive(:check_win?).with(node).exactly(4).times
+        board_win.win?
+      end
+
+      it 'is not a win' do
+        expect(board_win).not_to be_win
+      end
+    end
+
+    context 'when board is filled with four pieces but it is a win' do
+      let(:node) { double('node') }
+      subject(:board_win) { described_class.new }
+
+      before do
+        4.times do |i|
+          board_win.instance_variable_get(:@board)[0][i] = node
+        end
+        allow(board_win).to receive(:check_win?).and_return(true)
+      end
+
+      it 'is  a win' do
+        expect(board_win).to be_win
       end
     end
   end
