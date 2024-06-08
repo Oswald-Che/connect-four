@@ -3,7 +3,7 @@ require_relative 'node'
 class Board
   attr_reader :board, :empty
 
-  def initialize(empty = '__', board = Array.new(7) { Array.new(6, empty) })
+  def initialize(empty = '__', board = Array.new(6) { Array.new(7, empty) })
     @empty = empty
     @board = board
   end
@@ -47,19 +47,6 @@ class Board
     false
   end
 
-  def metho(item)
-    item.neighbours.each_with_index do |piece, index|
-      return true if recur(piece, index, item.coulour)
-    end
-    false
-  end
-
-  def recur(piece, index, colour, count = 0)
-    return false if piece == empty || piece.colour != colour
-    return true if count == 3
-
-    count += 1
-    recur(piece.neighbours[index], index, colour, count)
-  end
-
 end
+
+  

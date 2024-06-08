@@ -65,4 +65,31 @@ describe Board do
       end
     end
   end
+
+  describe '#column_full' do
+    context 'when a column is empty' do
+      subject(:game_col_full) { described_class.new }
+
+      it 'returns false' do
+        column = 1
+        expect(game_col_full).not_to be_column_full(column)
+      end
+    end
+
+    context 'when a column is full' do
+      let(:node) { double('node') }
+      subject(:game_col_full) { described_class.new }
+
+      before do
+        column = 1
+        6.times do |i|
+          game_col_full.instance_variable_get(:@board)[i][column] = node
+        end
+      end
+
+      it 'returns true' do
+        expect(game_col_full).to be_column_full(1)
+      end
+    end
+  end
 end
