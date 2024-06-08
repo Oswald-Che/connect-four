@@ -25,4 +25,41 @@ class Board
     end
   end
 
+  def full?
+    board.flatten.none?(empty)
+  end
+
+  def column_full?(col)
+    board.each do |row|
+      return false if row[col] == empty
+    end
+    true
+  end
+
+  def win?
+    board.each do |row|
+      row.each do |item|
+        next if item == empty
+
+        return true if metho(item)
+      end
+    end
+    false
+  end
+
+  def metho(item)
+    item.neighbours.each_with_index do |piece, index|
+      return true if recur(piece, index, item.coulour)
+    end
+    false
+  end
+
+  def recur(piece, index, colour, count = 0)
+    return false if piece == empty || piece.colour != colour
+    return true if count == 3
+
+    count += 1
+    recur(piece.neighbours[index], index, colour, count)
+  end
+
 end

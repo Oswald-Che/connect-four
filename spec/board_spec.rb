@@ -46,4 +46,23 @@ describe Board do
       end
     end
   end
+
+  describe '#full?' do
+    context 'when board is empty' do
+      subject(:board_full) { described_class.new }
+
+      it 'returns false' do
+        expect(board_full).not_to be_full
+      end
+    end
+
+    context 'when board is full' do
+      let(:node) { double('node') }
+      subject(:board_full) { described_class.new('__', Array.new(7, Array.new(6, node))) }
+
+      it 'returns true' do
+        expect(board_full).to be_full
+      end
+    end
+  end
 end
