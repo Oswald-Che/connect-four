@@ -1,4 +1,5 @@
 # class to play game and recieve player inputs
+require_relative 'board'
 class Game
   attr_reader :board, :colour
   def initialize(board = Board.new, colour = nil)
@@ -21,6 +22,11 @@ class Game
 
   def swap_colour
     @colour = ( colour != 'WHITE' ? 'WHITE' : 'BLACK' )
+  end
+
+  
+  def check_input(num)
+    num.to_s.match?(/^[0-8]$/) && board.column_full?(num)
   end
 
 end
