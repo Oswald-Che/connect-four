@@ -24,11 +24,20 @@ class Game
     @colour = ( colour != 'WHITE' ? 'WHITE' : 'BLACK' )
   end
 
-  
-  def check_input(num)
-    num.to_s.match?(/^[0-8]$/) && board.column_full?(num)
+  def user_input
+    loop do
+      i = input.to_i - 1
+      return (i.to_i - 1) if check_input(i)
+
+      puts 'Enter a number between 1 to 9 or In an empty column'
+    end
   end
 
+  def check_input(num)
+    num.to_s.match?(/^[0-8]$/) && board.column_empty?(num)
+  end
+
+  def input
+    gets.chomp
+  end
 end
-
-

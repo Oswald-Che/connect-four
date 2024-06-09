@@ -66,29 +66,29 @@ describe Board do
     end
   end
 
-  describe '#column_full' do
+  describe '#column_empty' do
     context 'when a column is empty' do
-      subject(:board_col_full) { described_class.new }
+      subject(:board_col_empty) { described_class.new }
 
       it 'returns false' do
         column = 1
-        expect(board_col_full).not_to be_column_full(column)
+        expect(board_col_empty).to be_column_empty(column)
       end
     end
 
     context 'when a column is full' do
       let(:node) { double('node') }
-      subject(:board_col_full) { described_class.new }
+      subject(:board_col_empty) { described_class.new }
 
       before do
         column = 1
         6.times do |i|
-          board_col_full.instance_variable_get(:@board)[i][column] = node
+          board_col_empty.instance_variable_get(:@board)[i][column] = node
         end
       end
 
       it 'returns true' do
-        expect(board_col_full).to be_column_full(1)
+        expect(board_col_empty).not_to be_column_empty(1)
       end
     end
   end

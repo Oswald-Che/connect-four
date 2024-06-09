@@ -32,11 +32,11 @@ class Board
     board.flatten.none?(empty)
   end
 
-  def column_full?(col)
+  def column_empty?(col)
     board.each do |row|
-      return false if row[col] == empty
+      return true if row[col] == empty
     end
-    true
+    false
   end
 
   def win?
