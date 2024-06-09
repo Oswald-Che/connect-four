@@ -15,7 +15,10 @@ class Board
 
   def display
     board.each do |row|
-      puts row.join(' ')
+      row.each do |piece|
+        piece == empty ? print("#{empty} ") : print("#{piece.symbol} ")
+      end
+      print "\n"
     end
   end
 
