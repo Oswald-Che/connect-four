@@ -105,6 +105,26 @@ describe Game do
     end
   end
 
+  describe '#game_end' do
+    let(:board) { instance_double(Board) }
+    subject(:game_over) { described_class.new(board) }
+
+    before do
+      allow(board).to receive(:full?)
+      allow(board).to receive(:win?)
+    end
+
+    it 'send full to board class' do
+      expect(board).to receive(:full?)
+      game_over.game_end
+    end
+
+    it 'send win to board class' do
+      expect(board).to receive(:win?)
+      game_over.game_end
+    end
+  end
+
 
 end
 

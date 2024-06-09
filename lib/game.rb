@@ -1,7 +1,8 @@
-# class to play game and recieve player inputs
 require_relative 'board'
+# class to play game and recieve player inputs
 class Game
   attr_reader :board, :colour
+
   def initialize(board = Board.new, colour = nil)
     @board = board
     @colour = colour
@@ -37,7 +38,22 @@ class Game
     num.to_s.match?(/^[0-8]$/) && board.column_empty?(num)
   end
 
+  def game_end
+    @board.full? || @board.win?
+  end
+
   def input
     gets.chomp
+  end
+
+  def final_message
+    if @board.win?
+      puts "Congratulations to #{colour} for winning the Game"
+      puts 'Gme Over'
+    elsif @board.full?
+      puts 'Game board is full no moves left'
+      puts 'Result is DRAW'
+      puts 'Game Over'
+    end
   end
 end
