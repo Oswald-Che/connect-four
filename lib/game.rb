@@ -14,11 +14,18 @@ class Game
     final_message
   end
 
+  def introduction
+    puts 'Welcome to connect four'
+    puts 'Input 1 to 6 place piece in column'
+    puts 'White plays first'
+  end
+
   def play
     swap_colour
+    puts "#{colour}\'s turn"
     input = user_input
     board.update_board(input, colour)
-    board.display_board
+    board.display
   end
 
   def swap_colour
@@ -28,14 +35,14 @@ class Game
   def user_input
     loop do
       i = input.to_i - 1
-      return (i.to_i - 1) if check_input(i)
+      return (i) if check_input(i)
 
-      puts 'Enter a number between 1 to 9 or In an empty column'
+      puts 'Enter a number between 1 to 6 or In an empty column'
     end
   end
 
   def check_input(num)
-    num.to_s.match?(/^[0-8]$/) && board.column_empty?(num)
+    num.to_s.match?(/^[0-5]$/) && board.column_empty?(num)
   end
 
   def game_end

@@ -14,7 +14,7 @@ class Board
   end
 
   def display
-    board.each do |row|
+    board.reverse.each do |row|
       row.each do |piece|
         piece == empty ? print("#{empty} ") : print("#{piece.symbol} ")
       end
