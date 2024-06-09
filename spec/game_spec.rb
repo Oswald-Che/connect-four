@@ -15,5 +15,4 @@ describe Game do
   describe '#play' do 
   end
 
-  describe ''
 end
