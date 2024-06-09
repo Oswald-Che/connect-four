@@ -1,8 +1,9 @@
 # class to play game and recieve player inputs
 class Game
-  def initialize(board = Board.new)
+  attr_reader :board, :colour
+  def initialize(board = Board.new, colour = nil)
     @board = board
-    @colour = nil
+    @colour = colour
   end
 
   def start
@@ -12,10 +13,14 @@ class Game
   end
 
   def play
-    swap_player
+    swap_colour
     input = user_input
     board.update_board(input, colour)
     board.display_board
+  end
+
+  def swap_colour
+    @colour = ( colour != 'WHITE' ? 'WHITE' : 'BLACK' )
   end
 
 end
