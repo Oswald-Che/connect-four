@@ -42,8 +42,8 @@ describe Node do
       subject(:node_neighbour) { described_class.new([7, 4]) }
 
       it 'returns positions of its neighbours' do
-        pos = [7, 4]
-        neighbours = [[6, 3], [6, 4], [6, 5], [7, 3], [7, 5]]
+        pos = [5, 6]
+        neighbours = [[4, 5], [4, 6], [5, 5]]
         result = node_neighbour.update_neighbours(pos).compact
         expect(result).to eq(neighbours)
       end

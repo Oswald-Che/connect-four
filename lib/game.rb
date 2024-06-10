@@ -16,7 +16,7 @@ class Game
 
   def introduction
     puts 'Welcome to connect four'
-    puts 'Input 1 to 6 place piece in column'
+    puts 'Input 1 to 7 place piece in column'
     puts 'White plays first'
   end
 
@@ -35,14 +35,14 @@ class Game
   def user_input
     loop do
       i = input.to_i - 1
-      return (i) if check_input(i)
+      return i if check_input(i)
 
-      puts 'Enter a number between 1 to 6 or In an empty column'
+      puts 'Enter a number between 1 to 7 or In an empty column'
     end
   end
 
   def check_input(num)
-    num.to_s.match?(/^[0-5]$/) && board.column_empty?(num)
+    num.to_s.match?(/^[0-6]$/) && board.column_empty?(num)
   end
 
   def game_end

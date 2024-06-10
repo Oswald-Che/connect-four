@@ -16,7 +16,8 @@ class Node
   def update_neighbours(data, array = [])
     deltas.each do |item|
       ar = [data, item].transpose.map(&:sum)
-      array << (ar.all? { |i| i.between?(0, 7) } ? ar : nil)
+      ar = ar[0].between?(0, 5) && ar[1].between?(0, 6) ? ar : nil 
+      array << ar
     end
     array
   end

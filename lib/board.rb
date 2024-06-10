@@ -68,6 +68,8 @@ class Board
 
     count += 1
     i, j = piece.neighbours[index]
+    return false if piece.neighbours[index].nil?
+
     piece = board[i][j]
     successive?(piece, index, colour, count)
   end
